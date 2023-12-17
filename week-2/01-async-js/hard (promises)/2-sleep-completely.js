@@ -5,6 +5,9 @@
  */
 
 function sleep(milliseconds) {
+   return new Promise((resove) => {
+    setInterval(resove, milliseconds)
+   })
 }
 
 module.exports = sleep;
