@@ -8,27 +8,27 @@
 //  - HH:MM::SS AM/PM (Eg 01:45:23 PM)
 const readline = require("readline")
 const starTheColck = () => {
-   
+
     date = new Date().toLocaleTimeString();
-    return date
-     
+
+    return date;
+
 
 }
- 
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout
-    });
-  
-    const interval = setInterval(() => {
-      const time = starTheColck();
-      process.stdout.write(`\r${time}`);
-    }, 1000);
-  
-    rl.on('line', (input) => {
-      if (input === '') {
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
+const interval = setInterval(() => {
+    const time = starTheColck();
+    process.stdout.write(`\r${time}`);
+}, 1000);
+
+rl.on('line', (input) => {
+    if (input === '') {
         clearInterval(interval);
         rl.close();
-      }
-    });
-  
+    }
+});
