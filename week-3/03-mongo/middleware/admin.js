@@ -1,7 +1,26 @@
-// Middleware for handling auth
+const { Admin } = require('../db')
+const zod = require('zod')
+const admin = zod.object({
+    userName: zod.string().email(),
+    password: zod.string().min(5)
+})
 function adminMiddleware(req, res, next) {
-    // Implement admin auth logic
-    // You need to check the headers and validate the admin from the admin DB. Check readme for the exact headers to be expected
+    let userName = req.headers.username
+    let password = req.headers.password
+
+
+    Admin.findOne({
+        userName,
+        password
+    }).then((value) => {
+        next()
+    }).catch((err) => {
+        res.json({
+            msg: "user doesn't exist"
+        })
+    })
+
 }
+
 
 module.exports = adminMiddleware;
