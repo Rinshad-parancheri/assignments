@@ -2,7 +2,6 @@ const mongoose = require('mongoose');
 
 // Connect to MongoDB
 mongoose.connect('mongodb+srv://admin:gBaHtH4oEtHVFjbv@cluster0.7hxnq9e.mongodb.net/courses_app');
-const db =  'mongodb+srv://admin:gBaHtH4oEtHVFjbv@cluster0.7hxnq9e.mongodb.net/courses_app'
 
 // Define schemas
 const AdminSchema = new mongoose.Schema({
@@ -33,6 +32,5 @@ const Course = mongoose.model('Course', CourseSchema);
 module.exports = {
     Admin,
     User,
-    db,
     Course
 }

@@ -1,6 +1,19 @@
-function userMiddleware(req, res, next) {
-    // Implement user auth logic
-    // You need to check the headers and validate the user from the user DB. Check readme for the exact headers to be expected
-}
+const { jwtCode } = require('../jwtCode/jwtpass')
+const jwt = require('jsonwebtoken');
+console.log(jwtCode);
+function adminMiddleware(req, res, next) {
+    let jwtTokenOfUser = req.headers.authentication;
+    let isValid = jwt.verify(jwtTokenOfUser, jwtCode);
 
+    try {
+        if (isValid) {
+            req.headers.username = jwt.decode(jwtTokenOfUser, jwtCode);
+            next()
+        } else {
+            res.status(404).send("invalid user name");
+        }
+    } catch (e) {
+        res.send("error occured");
+    }
+}
 module.exports = userMiddleware;

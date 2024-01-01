@@ -1,7 +1,20 @@
-// Middleware for handling auth
+const { jwtCode } = require('../jwtCode/jwtpass')
+const jwt = require('jsonwebtoken');
+console.log(jwtCode);
 function adminMiddleware(req, res, next) {
-    // Implement admin auth logic
-    // You need to check the headers and validate the admin from the admin DB. Check readme for the exact headers to be expected
+    let jwtTokenOfUser = req.headers.authentication;
+    let isValid = jwt.decode(jwtTokenOfUser, jwtCode);
+
+    try {
+        if (isValid) {
+            req.headers.username = jwt.decode(jwtTokenOfUser, jwtCode);
+            next()
+        } else {
+            res.status(404).send("invalid user name");
+        }
+    } catch (e) {
+        res.send("error occured");
+    }
 }
 
 module.exports = adminMiddleware;
